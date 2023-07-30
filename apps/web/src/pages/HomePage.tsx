@@ -1,23 +1,27 @@
+import { useQuery } from 'react-query';
+
+import { getRandomMessage } from '@/api/test';
 import Button from '@/components/utils/Button';
 
-import { useTestStore } from '../store/testStore';
-
 export default function HomePage() {
-  const {
-    test,
-    actions: { randomize },
-  } = useTestStore();
+  const { data, isLoading, isFetching, refetch } = useQuery('random-message', getRandomMessage);
 
   return (
-    <main className="grid place-items-center h-full">
+    <main className="grid h-full place-items-center">
       <div className="text-center">
-        <h1 className="text-xl mb-4 font-bold text-gray-950 dark:text-white">
+        <h1 className="mb-4 text-xl font-bold text-gray-950 dark:text-white">
           NestJS + ReactJS starter
         </h1>
-        <p className="px-2 w-fit mx-auto py-1 text-gray-600 dark:text-gray-400 text-sm font-medium bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-md">
-          {test}
+        <p className="px-2 py-1 mx-auto text-sm font-medium text-gray-600 bg-gray-100 border border-gray-200 rounded-md w-fit dark:text-gray-400 dark:bg-gray-900 dark:border-gray-800">
+          {data}
         </p>
-        <Button onClick={randomize} intent="secondary" className="mx-auto mt-4" size="sm">
+        <Button
+          disabled={isLoading || isFetching}
+          onClick={() => refetch()}
+          intent="secondary"
+          className="mx-auto mt-4"
+          size="sm"
+        >
           Randomize Text
         </Button>
       </div>
