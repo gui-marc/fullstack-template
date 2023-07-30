@@ -31,8 +31,8 @@ export default function HomePage() {
           disabled={isLoading || isFetching}
           onClick={() => refetch()}
           intent="secondary"
-          className="mx-auto mt-4"
           size="sm"
+          className="mx-auto mt-4"
         >
           {(isLoading || isFetching) && <Spinner className="mr-2" />}
           Randomize Text

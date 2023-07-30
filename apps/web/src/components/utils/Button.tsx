@@ -9,7 +9,7 @@ const button = tv({
     intent: {
       primary: 'text-white bg-primary-600 hover:bg-primary-700',
       secondary:
-        'text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700',
+        'text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600',
     },
     size: {
       md: 'h-10 px-4',
