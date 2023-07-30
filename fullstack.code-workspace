@@ -1,0 +1,19 @@
+{
+  "folders": [
+	{ "name": "Mono Repo", "path": "."},
+    {
+      "name": "🧰 Api Backend (NestJS)",
+      "path": "apps/api"
+    },
+    {
+      "name": "💻 Web Frontend (ReactJS)",
+      "path": "apps/web"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "node_modules/typescript/lib",
+	"files.exclude": {
+		"apps": true
+	}
+  },
+}

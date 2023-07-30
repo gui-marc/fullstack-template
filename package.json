@@ -1,0 +1,20 @@
+{
+  "name": "fullstack-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "node apps/api/dist/main"
+  },
+  "keywords": [],
+  "author": "Guilherme Marcondes",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^1.10.9"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
+}
