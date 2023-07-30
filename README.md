@@ -1,8 +1,26 @@
 # Template for fullstack app with NestJs and React
 
-## Snippets
+## Setup
 
 ### React
+
+The react app is created with vite. It uses tailwindcss for styling and framer-motion for animations.
+
+List of packages:
+
+- [Tanstack Query](https://tanstack.com/query/v3/) for data fetching
+- [React Hook Form](https://react-hook-form.com/) for form handling
+- [React Router](https://reactrouter.com/) for routing
+- [Lucide Icons](https://lucide.dev/) for icons
+- [React Hot Toast](https://react-hot-toast.com/) for toasts
+- [Zod](https://zod.dev) for validation
+- [TailwindCSS](https://tailwindcss.com/) for styling
+- [Framer Motion](https://www.framer.com/motion/) for animations
+- [Tainlwind Variants](https://www.tailwind-variants.org/) for tailwind variants
+- [Axios](https://axios-http.com/) for http requests
+- [Vite](https://vitejs.dev/) for bundling
+
+#### A snippet for creating styled components:
 
 ```json
 "Creates a Motion Ref Tailwind Component": {
