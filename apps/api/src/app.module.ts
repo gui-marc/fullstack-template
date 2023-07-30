@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { z } from 'zod';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -21,6 +23,9 @@ import { z } from 'zod';
         validateSchema.parse(config);
         return config;
       },
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../..', 'web', 'dist'),
     }),
   ],
   controllers: [AppController],
