@@ -1,10 +1,12 @@
-import { forwardRef } from 'react';
+import { ReactNode, forwardRef } from 'react';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { tv, VariantProps } from 'tailwind-variants';
 
+import Spinner from './Spinner';
+
 const button = tv({
-  base: 'text-sm font-medium rounded-md flex justify-center items-center leading-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition ease-in-out duration-150',
+  base: 'relative text-sm font-medium rounded-md flex justify-center items-center leading-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition ease-in-out duration-150 disabled:pointer-events-none',
   variants: {
     intent: {
       primary: 'text-white bg-primary-600 hover:bg-primary-700',
@@ -24,13 +26,37 @@ const button = tv({
 
 export interface ButtonProps
   extends React.ComponentProps<typeof motion.button>,
-    VariantProps<typeof button> {}
+    VariantProps<typeof button> {
+  isLoading?: boolean;
+  children: ReactNode;
+}
 
 const Button = forwardRef<React.ElementRef<typeof motion.button>, ButtonProps>(function _Button(
-  { intent, size, className, ...props },
+  { intent, size, className, isLoading, children, ...props },
   ref,
 ) {
-  return <motion.button className={button({ intent, size, className })} {...props} ref={ref} />;
+  return (
+    <motion.button
+      className={button({ intent, size, className })}
+      {...props}
+      disabled={props.disabled || isLoading}
+      ref={ref}
+    >
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 flex items-center justify-center bg-black/5 backdrop-blur-sm"
+          >
+            <Spinner />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {children}
+    </motion.button>
+  );
 });
 
 export default Button;

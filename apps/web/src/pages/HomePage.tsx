@@ -5,7 +5,6 @@ import { AxiosError } from 'axios';
 
 import { getRandomMessage } from '@/api/test';
 import Button from '@/components/utils/Button';
-import Spinner from '@/components/utils/Spinner';
 
 export default function HomePage() {
   const { data, isLoading, isFetching, refetch } = useQuery('random-message', getRandomMessage, {
@@ -28,13 +27,12 @@ export default function HomePage() {
           </p>
         )}
         <Button
-          disabled={isLoading || isFetching}
+          isLoading={isLoading || isFetching}
           onClick={() => refetch()}
           intent="secondary"
           size="sm"
           className="mx-auto mt-4"
         >
-          {(isLoading || isFetching) && <Spinner className="mr-2" />}
           Randomize Text
         </Button>
       </div>

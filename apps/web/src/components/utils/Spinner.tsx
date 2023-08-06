@@ -7,7 +7,7 @@ const spinner = tv({
   base: 'animate-spin text-gray-200 dark:text-gray-800',
   variants: {
     intent: {
-      neutral: 'text-gray-800 dark:text-gray-200',
+      neutral: 'fill-gray-900 dark:fill-white',
     },
     size: {
       md: 'w-4 h-4',
