@@ -1,0 +1,19 @@
+version: '3.8'
+
+# This is a sample compose file for a postgres database
+
+services:
+  database:
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - 6379:6379

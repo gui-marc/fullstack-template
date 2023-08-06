@@ -1,11 +1,16 @@
 import { z } from 'zod';
 
 const configSchema = z.object({
+  // App
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
   PORT: z.string().default('3000'),
+  // Prisma
   DATABASE_URL: z.string().url(),
+  // Redis
+  REDIS_HOST: z.string().default('localhost'),
+  REDIS_PORT: z.string().default('6379'),
 });
 
 export type Config = z.infer<typeof configSchema>;
