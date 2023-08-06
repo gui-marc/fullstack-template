@@ -8,10 +8,10 @@ import RootLayout from '@/components/layout/RootLayout';
 import router from '@/routes';
 
 // Fonts
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
-import '@fontsource/inter/700.css';
+import '@fontsource/inter/latin-ext-400.css';
+import '@fontsource/inter/latin-ext-500.css';
+import '@fontsource/inter/latin-ext-600.css';
+import '@fontsource/inter/latin-ext-700.css';
 
 const queryClient = new QueryClient();
 
