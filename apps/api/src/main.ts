@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import bodyParser from 'body-parser';
+import * as bodyParser from 'body-parser';
 import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
 
