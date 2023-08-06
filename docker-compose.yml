@@ -1,6 +1,6 @@
 version: '3.8'
 
-# This is a sample compose file for a postgres database
+# This is a docker compose file for local development
 
 services:
   database:
@@ -17,3 +17,9 @@ services:
     restart: always
     ports:
       - 6379:6379
+  maildev:
+    image: maildev/maildev
+    restart: always
+    ports:
+      - 1080:1080
+      - 1025:1025

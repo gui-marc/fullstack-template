@@ -11,6 +11,13 @@ const configSchema = z.object({
   // Redis
   REDIS_HOST: z.string().default('localhost'),
   REDIS_PORT: z.string().default('6379'),
+  // SMTP
+  SMTP_HOST: z.string(),
+  SMTP_PORT: z.string(),
+  SMTP_FROM: z.string(),
+  SMTP_SECURE: z.enum(['true', 'false']).default('false'),
+  SMTP_USER: z.string().default(''),
+  SMTP_PASS: z.string().default(''),
 });
 
 export type Config = z.infer<typeof configSchema>;
