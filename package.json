@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "start": "node apps/api/dist/main"
+    "start": "NODE_ENV=production node apps/api/dist/main"
   },
   "keywords": [],
   "author": "Guilherme Marcondes",
