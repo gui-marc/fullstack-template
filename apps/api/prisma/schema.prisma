@@ -10,7 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Test {
-  id      Int    @id @default(autoincrement())
-  message String
+model User {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+
+  Password     Password?
+  RefreshToken RefreshToken?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Password {
+  userId Int  @id
+  User   User @relation(fields: [userId], references: [id])
+
+  hash String
+}
+
+model RefreshToken {
+  userId Int  @id
+  User   User @relation(fields: [userId], references: [id])
+
+  token String @unique
 }

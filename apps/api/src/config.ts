@@ -18,6 +18,9 @@ const configSchema = z.object({
   SMTP_SECURE: z.enum(['true', 'false']).default('false'),
   SMTP_USER: z.string().default(''),
   SMTP_PASS: z.string().default(''),
+  // JWT
+  JWT_ACCESS_TOKEN_SECRET: z.string(),
+  JWT_REFRESH_TOKEN_SECRET: z.string(),
 });
 
 export type Config = z.infer<typeof configSchema>;

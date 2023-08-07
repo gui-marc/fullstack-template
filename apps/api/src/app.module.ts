@@ -10,6 +10,8 @@ import { redisStore } from 'cache-manager-redis-store';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ReactAdapter } from '@webtre/nestjs-mailer-react-adapter';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -46,6 +48,8 @@ import { ReactAdapter } from '@webtre/nestjs-mailer-react-adapter';
         adapter: new ReactAdapter(),
       },
     }),
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
