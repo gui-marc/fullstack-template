@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto, loginDtoSchema } from './dto/login.dto';
 import { ValidationPipe } from '@/commom/validation/validation.pipe';
@@ -10,6 +18,8 @@ import { Request } from 'express';
 import { AccessTokenGuard } from './guards/access-token.guard';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
 import { Public } from '@/commom/decorators/public.decorator';
+import { MailerService } from '@nestjs-modules/mailer';
+import { NoConfirmation } from './guards/account-confirmation.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -25,13 +35,27 @@ export class AuthController {
   @Post('register')
   async register(
     @Body(new ValidationPipe(createUserDtoSchema)) body: CreateUserDto,
+    @Req() req: Request,
   ) {
-    return this.authService.register(body);
+    const response = await this.authService.register(body);
+
+    await this.authService.sendConfirmationEmail(response.user.email);
+
+    return {
+      accessToken: response.accessToken,
+      refreshToken: response.refreshToken,
+    };
+  }
+
+  @Get('send-confirm-email')
+  @NoConfirmation()
+  async sendConfirmEmail(@Req() req: Request) {
+    await this.authService.sendConfirmationEmail(req.user['email']);
   }
 
   @Get('logout')
   async logout(@Req() req: Request) {
-    return this.authService.logout(req.user['email']);
+    return this.authService.logout(req.user['sub']);
   }
 
   @UseGuards(RefreshTokenGuard)
@@ -46,5 +70,14 @@ export class AuthController {
   @Get('me')
   async me(@Req() req: Request) {
     return this.authService.me(req.user['email']);
+  }
+
+  @Get('confirm-account')
+  @NoConfirmation()
+  async confirmAccount(@Req() req: Request) {
+    return this.authService.confirmAccount(
+      req.user['sub'],
+      req.query.token as string,
+    );
   }
 }

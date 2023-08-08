@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 const configSchema = z.object({
   // App
+  APP_URL: z.string().url().default('http://localhost:5173'),
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
@@ -21,6 +22,8 @@ const configSchema = z.object({
   // JWT
   JWT_ACCESS_TOKEN_SECRET: z.string(),
   JWT_REFRESH_TOKEN_SECRET: z.string(),
+  JWT_PASSWORD_RECOVERY_TOKEN_SECRET: z.string(),
+  JWT_ACCOUNT_CONFIRMATION_TOKEN_SECRET: z.string(),
 });
 
 export type Config = z.infer<typeof configSchema>;

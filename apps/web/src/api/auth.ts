@@ -31,3 +31,16 @@ export async function me() {
   const response = await client.get(`${BASE_URL}/me`);
   return response.data;
 }
+
+export async function confirm(confirmToken: string) {
+  const response = await client.get(`${BASE_URL}/confirm-account`, {
+    params: {
+      token: confirmToken,
+    },
+  });
+  return response.data;
+}
+
+export async function sendConfirmationEmail() {
+  await client.get(`${BASE_URL}/send-confirm-email`);
+}

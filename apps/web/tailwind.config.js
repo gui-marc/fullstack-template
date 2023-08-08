@@ -11,7 +11,7 @@ export default {
       current: twColors.current,
       black: twColors.black,
       white: twColors.white,
-      gray: twColors.neutral,
+      gray: twColors.slate,
       primary: twColors.blue,
       success: twColors.green,
       danger: twColors.red,

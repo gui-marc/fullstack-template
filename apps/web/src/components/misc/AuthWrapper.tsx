@@ -30,6 +30,9 @@ export default function AuthWrapper() {
           if (error.response?.status === 401) {
             console.log('redirect');
             navigate('/login');
+          } else if (error.response?.status === 403) {
+            console.log('redirect');
+            navigate('/pending-confirmation');
           }
         }
       }

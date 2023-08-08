@@ -8,6 +8,7 @@ import { AuthController } from './auth.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuard } from './guards/access-token.guard';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
+import { AccountConfirmationGuard } from './guards/account-confirmation.guard';
 
 @Module({
   imports: [UsersModule, JwtModule.register({})],
@@ -19,6 +20,10 @@ import { RefreshTokenGuard } from './guards/refresh-token.guard';
     {
       provide: APP_GUARD,
       useClass: AccessTokenGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AccountConfirmationGuard,
     },
   ],
   controllers: [AuthController],

@@ -25,4 +25,15 @@ export class UsersService {
       },
     });
   }
+
+  async confirmAccount(userId: number) {
+    return this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        confirmedAt: new Date(),
+      },
+    });
+  }
 }

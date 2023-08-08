@@ -1,14 +1,21 @@
 import { toast } from 'react-hot-toast';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import { AxiosError } from 'axios';
 
+import { logout } from '@/api/auth';
 import { getRandomMessage } from '@/api/test';
 import Button from '@/components/utils/Button';
 import { useAuthStore } from '@/store/auth';
 
 export default function HomePage() {
-  const { user } = useAuthStore();
+  const {
+    user,
+    actions: { logout: storeLogout },
+  } = useAuthStore();
+
+  const navigate = useNavigate();
 
   const { data, isLoading, isFetching, refetch } = useQuery('random-message', getRandomMessage, {
     onError: (error) => {
@@ -18,10 +25,30 @@ export default function HomePage() {
     },
   });
 
+  const { mutate } = useMutation('logout', logout, {
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        toast.error('Request Failed, please check your api server');
+      }
+    },
+    onSuccess: () => {
+      toast.success('Logout success');
+      storeLogout();
+      navigate('/login');
+    },
+  });
+
   return (
     <main className="grid h-full place-items-center">
       <div className="text-center">
-        {user && <p className="mb-3 text-gray-600 dark:text-gray-400">Hello {user.email}</p>}
+        {user && (
+          <p className="mb-3 text-gray-600 dark:text-gray-400">
+            Hello {user.email}{' '}
+            <Button intent="danger" size="sm" onClick={() => mutate()}>
+              Logout
+            </Button>
+          </p>
+        )}
         <h1 className="mb-4 text-xl font-bold text-gray-950 dark:text-white">
           NestJS + ReactJS starter
         </h1>

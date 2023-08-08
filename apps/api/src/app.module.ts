@@ -23,7 +23,6 @@ import { AuthModule } from './auth/auth.module';
     CacheModule.register<any>({
       ttl: 60 * 30, // 30 minutes
       max: 100,
-      isGlobal: true,
       store: redisStore,
       host: process.env.REDIS_HOST,
       port: parseInt(process.env.REDIS_PORT),
@@ -52,12 +51,6 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}

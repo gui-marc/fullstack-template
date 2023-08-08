@@ -18,8 +18,6 @@ export class AccessTokenGuard extends AuthGuard(constants.ACCESS_TOKEN_NAME) {
       return true;
     }
 
-    console.log('AccessTokenGuard');
-
     return super.canActivate(context);
   }
 }

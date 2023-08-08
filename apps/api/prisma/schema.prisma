@@ -14,8 +14,12 @@ model User {
   id    Int    @id @default(autoincrement())
   email String @unique
 
-  Password     Password?
-  RefreshToken RefreshToken?
+  Password                 Password?
+  RefreshToken             RefreshToken?
+  AccountConfirmationToken AccountConfirmationToken?
+  PasswordRecoveryToken    PasswordRecoveryToken?
+
+  confirmedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -33,4 +37,18 @@ model RefreshToken {
   User   User @relation(fields: [userId], references: [id])
 
   token String @unique
+}
+
+model AccountConfirmationToken {
+  userId Int  @id
+  User   User @relation(fields: [userId], references: [id])
+
+  hashedToken String @unique
+}
+
+model PasswordRecoveryToken {
+  userId Int  @id
+  User   User @relation(fields: [userId], references: [id])
+
+  hashedToken String @unique
 }
