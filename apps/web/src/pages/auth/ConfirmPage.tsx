@@ -29,7 +29,7 @@ export default function ConfirmPage() {
 
   return (
     <main className="grid h-full place-items-center">
-      <div className="text-center">
+      <div className="space-y-4 text-center">
         {isLoading && <Spinner />}
         <h1 className="text-lg font-medium text-white">
           {isLoading ? 'Confirming your account...' : 'Account Confirmed'}

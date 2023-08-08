@@ -46,9 +46,15 @@ export default function RegisterPage() {
   return (
     <main className="grid h-full place-items-center">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm space-y-4">
-        <Input type="email" placeholder="Your email" {...register('email')} />
-        <Input type="password" placeholder="Your password" {...register('password')} />
+        <Input label="Email" type="email" placeholder="Your email" {...register('email')} />
         <Input
+          label="Password"
+          type="password"
+          placeholder="Your password"
+          {...register('password')}
+        />
+        <Input
+          label="Confirm Password"
           type="password"
           placeholder="Confirm your password"
           {...register('confirmPassword')}

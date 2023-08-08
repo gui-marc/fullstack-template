@@ -46,8 +46,13 @@ export default function LoginPage() {
   return (
     <main className="grid h-full place-items-center">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm space-y-4">
-        <Input placeholder="Your email" type="email" {...register('email')} />
-        <Input placeholder="Your password" type="password" {...register('password')} />
+        <Input label="Email" placeholder="email@email.com" type="email" {...register('email')} />
+        <Input
+          label="Password"
+          placeholder="Type your password"
+          type="password"
+          {...register('password')}
+        />
         <Button isLoading={isLoading} intent="primary" className="w-full">
           Login
         </Button>

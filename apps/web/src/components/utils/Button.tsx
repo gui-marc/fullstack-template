@@ -6,7 +6,7 @@ import { tv, VariantProps } from 'tailwind-variants';
 import Spinner from './Spinner';
 
 const button = tv({
-  base: 'relative text-sm font-medium rounded-md flex justify-center items-center leading-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition ease-in-out duration-150 disabled:pointer-events-none',
+  base: 'relative text-sm active:scale-[99%] font-medium rounded-md inline-flex justify-center items-center leading-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition ease-in-out duration-150 disabled:pointer-events-none',
   variants: {
     intent: {
       primary: 'text-white bg-primary-600 hover:bg-primary-700',

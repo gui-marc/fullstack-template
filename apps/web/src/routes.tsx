@@ -4,10 +4,10 @@ import { createBrowserRouter } from 'react-router-dom';
 import AuthWrapper from './components/misc/AuthWrapper';
 
 const HomePage = React.lazy(() => import('./pages/HomePage'));
-const LoginPage = React.lazy(() => import('./pages/LoginPage'));
-const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
-const ConfirmPage = React.lazy(() => import('./pages/ConfirmPage'));
-const PendingConfirmationPage = React.lazy(() => import('./pages/PendingConfirmationPage'));
+const LoginPage = React.lazy(() => import('./pages/auth/LoginPage'));
+const RegisterPage = React.lazy(() => import('./pages/auth/RegisterPage'));
+const ConfirmPage = React.lazy(() => import('./pages/auth/ConfirmPage'));
+const PendingConfirmationPage = React.lazy(() => import('./pages/auth/PendingConfirmationPage'));
 
 const router = createBrowserRouter([
   {

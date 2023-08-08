@@ -41,14 +41,6 @@ export default function HomePage() {
   return (
     <main className="grid h-full place-items-center">
       <div className="text-center">
-        {user && (
-          <p className="mb-3 text-gray-600 dark:text-gray-400">
-            Hello {user.email}{' '}
-            <Button intent="danger" size="sm" onClick={() => mutate()}>
-              Logout
-            </Button>
-          </p>
-        )}
         <h1 className="mb-4 text-xl font-bold text-gray-950 dark:text-white">
           NestJS + ReactJS starter
         </h1>
@@ -66,6 +58,15 @@ export default function HomePage() {
         >
           Randomize Text
         </Button>
+
+        {user && (
+          <p className="mt-16 text-gray-600 dark:text-gray-400">
+            Hello {user.email}{' '}
+            <Button intent="secondary" size="sm" onClick={() => mutate()}>
+              Logout
+            </Button>
+          </p>
+        )}
       </div>
     </main>
   );

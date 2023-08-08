@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Logger,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto, loginDtoSchema } from './dto/login.dto';
 import { ValidationPipe } from '@/commom/validation/validation.pipe';
@@ -15,10 +7,8 @@ import {
   createUserDtoSchema,
 } from '@/users/dtos/create-user.dto';
 import { Request } from 'express';
-import { AccessTokenGuard } from './guards/access-token.guard';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
 import { Public } from '@/commom/decorators/public.decorator';
-import { MailerService } from '@nestjs-modules/mailer';
 import { NoConfirmation } from './guards/account-confirmation.guard';
 
 @Controller('auth')
@@ -35,7 +25,6 @@ export class AuthController {
   @Post('register')
   async register(
     @Body(new ValidationPipe(createUserDtoSchema)) body: CreateUserDto,
-    @Req() req: Request,
   ) {
     const response = await this.authService.register(body);
 
