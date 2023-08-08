@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { tv, VariantProps } from 'tailwind-variants';
 
 const card = tv({
-  base: 'rounded-lg border dark:bg-gray-900 bg-white border-gray-200 dark:border-gray-800 shadow-sm',
+  base: 'rounded-2xl border dark:bg-gray-900 bg-white border-gray-200 dark:border-gray-800 shadow-sm',
 });
 
 export interface CardProps

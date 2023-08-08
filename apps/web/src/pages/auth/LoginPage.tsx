@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from '@/components/utils/card';
 import Input from '@/components/utils/Input';
+import Link from '@/components/utils/Link';
 import { LoginDto, loginSchema } from '@/schemas/auth';
 import { useAuthStore } from '@/store/auth';
 
@@ -80,6 +81,11 @@ export default function LoginPage() {
               errorMessage={errors.password?.message}
               {...register('password')}
             />
+            <div className="flex items-center">
+              <Link className="text-sm" to="/password-recover">
+                Forgot my password
+              </Link>
+            </div>
           </CardContent>
 
           <CardFooter className="flex items-center justify-between">

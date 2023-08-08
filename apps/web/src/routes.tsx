@@ -8,6 +8,7 @@ const LoginPage = React.lazy(() => import('./pages/auth/LoginPage'));
 const RegisterPage = React.lazy(() => import('./pages/auth/RegisterPage'));
 const ConfirmPage = React.lazy(() => import('./pages/auth/ConfirmPage'));
 const PendingConfirmationPage = React.lazy(() => import('./pages/auth/PendingConfirmationPage'));
+const PasswordRecoverPage = React.lazy(() => import('./pages/auth/PasswordRecoverPage'));
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: '/pending-confirmation',
     Component: PendingConfirmationPage,
+  },
+  {
+    path: '/password-recover',
+    Component: PasswordRecoverPage,
   },
 ]);
 

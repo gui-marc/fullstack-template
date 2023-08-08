@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AxiosError } from 'axios';
 
 import * as AuthApi from '@/api/auth';
+import BackButton from '@/components/utils/BackButton';
 import Button from '@/components/utils/Button';
 import ButtonLink from '@/components/utils/ButtonLink';
 import {
@@ -15,6 +16,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardPreHeader,
   CardTitle,
 } from '@/components/utils/card';
 import Input from '@/components/utils/Input';
@@ -60,6 +62,10 @@ export default function RegisterPage() {
     <main className="grid h-full px-6 place-items-center">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm space-y-4">
         <Card>
+          <CardPreHeader>
+            <BackButton to="/login">Back to Login</BackButton>
+          </CardPreHeader>
+
           <CardHeader>
             <CardTitle>Create an Account</CardTitle>
             <CardDescription>Type your email and password to register</CardDescription>
