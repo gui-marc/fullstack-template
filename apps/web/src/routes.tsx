@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 
 import AuthWrapper from './components/misc/AuthWrapper';
 
@@ -10,6 +10,11 @@ const ConfirmPage = React.lazy(() => import('./pages/auth/ConfirmPage'));
 const PendingConfirmationPage = React.lazy(() => import('./pages/auth/PendingConfirmationPage'));
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    index: true,
+    element: <Navigate to="/app" replace={true} />,
+  },
   {
     path: '/app',
     Component: AuthWrapper,
