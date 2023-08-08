@@ -1,13 +1,22 @@
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useMutation } from 'react-query';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AxiosError } from 'axios';
 
 import * as AuthApi from '@/api/auth';
 import Button from '@/components/utils/Button';
+import ButtonLink from '@/components/utils/ButtonLink';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/utils/card';
 import Input from '@/components/utils/Input';
 import { LoginDto, loginSchema } from '@/schemas/auth';
 import { useAuthStore } from '@/store/auth';
@@ -35,7 +44,11 @@ export default function LoginPage() {
     actions: { setAccessToken, setRefreshToken, setUser },
   } = useAuthStore();
 
-  const { register, handleSubmit } = useForm<LoginDto>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginDto>({
     resolver: zodResolver(loginSchema),
   });
 
@@ -44,24 +57,40 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="grid h-full place-items-center">
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm space-y-4">
-        <Input label="Email" placeholder="email@email.com" type="email" {...register('email')} />
-        <Input
-          label="Password"
-          placeholder="Type your password"
-          type="password"
-          {...register('password')}
-        />
-        <Button isLoading={isLoading} intent="primary" className="w-full">
-          Login
-        </Button>
-        <p className="text-center">
-          Doesn&apos;t have an account?{' '}
-          <Link className="text-primary-500" to="/register">
-            Register
-          </Link>
-        </p>
+    <main className="grid h-full px-6 place-items-center">
+      <form className="max-w-[380px] w-full" onSubmit={handleSubmit(onSubmit)}>
+        <Card className="max-w-[380px] w-full">
+          <CardHeader>
+            <CardTitle>Login</CardTitle>
+            <CardDescription>Enter your email and password to login</CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-3">
+            <Input
+              label="Email"
+              placeholder="email@email.com"
+              type="email"
+              errorMessage={errors.email?.message}
+              {...register('email')}
+            />
+            <Input
+              label="Password"
+              placeholder="Type your password"
+              type="password"
+              errorMessage={errors.password?.message}
+              {...register('password')}
+            />
+          </CardContent>
+
+          <CardFooter className="flex items-center justify-between">
+            <ButtonLink intent="secondary" to="/register">
+              Register
+            </ButtonLink>
+            <Button isLoading={isLoading} intent="primary">
+              Login
+            </Button>
+          </CardFooter>
+        </Card>
       </form>
     </main>
   );

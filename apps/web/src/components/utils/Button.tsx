@@ -1,12 +1,13 @@
 import { ReactNode, forwardRef } from 'react';
 
+import { Slot } from '@radix-ui/react-slot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { tv, VariantProps } from 'tailwind-variants';
 
 import Spinner from './Spinner';
 
-const button = tv({
-  base: 'relative text-sm active:scale-[99%] font-medium rounded-md inline-flex justify-center items-center leading-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition ease-in-out duration-150 disabled:pointer-events-none',
+export const button = tv({
+  base: 'relative text-sm active:scale-[99%] font-medium rounded-lg inline-flex justify-center items-center leading-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition ease-in-out duration-150 disabled:pointer-events-none',
   variants: {
     intent: {
       primary: 'text-white bg-primary-600 hover:bg-primary-700',
@@ -31,14 +32,16 @@ export interface ButtonProps
     VariantProps<typeof button> {
   isLoading?: boolean;
   children: ReactNode;
+  asChild?: boolean;
 }
 
 const Button = forwardRef<React.ElementRef<typeof motion.button>, ButtonProps>(function _Button(
   { intent, size, className, isLoading, children, ...props },
   ref,
 ) {
+  const Component = props.asChild ? (Slot as typeof motion.button) : motion.button;
   return (
-    <motion.button
+    <Component
       className={button({ intent, size, className })}
       {...props}
       disabled={props.disabled || isLoading}
@@ -57,7 +60,7 @@ const Button = forwardRef<React.ElementRef<typeof motion.button>, ButtonProps>(f
         )}
       </AnimatePresence>
       {children}
-    </motion.button>
+    </Component>
   );
 });
 

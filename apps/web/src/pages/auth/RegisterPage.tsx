@@ -1,13 +1,22 @@
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useMutation } from 'react-query';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AxiosError } from 'axios';
 
 import * as AuthApi from '@/api/auth';
 import Button from '@/components/utils/Button';
+import ButtonLink from '@/components/utils/ButtonLink';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/utils/card';
 import Input from '@/components/utils/Input';
 import { RegisterDto, registerSchema } from '@/schemas/auth';
 import { useAuthStore } from '@/store/auth';
@@ -35,7 +44,11 @@ export default function RegisterPage() {
     actions: { setAccessToken, setRefreshToken, setUser },
   } = useAuthStore();
 
-  const { register, handleSubmit } = useForm<RegisterDto>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterDto>({
     resolver: zodResolver(registerSchema),
   });
 
@@ -44,30 +57,46 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="grid h-full place-items-center">
+    <main className="grid h-full px-6 place-items-center">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm space-y-4">
-        <Input label="Email" type="email" placeholder="Your email" {...register('email')} />
-        <Input
-          label="Password"
-          type="password"
-          placeholder="Your password"
-          {...register('password')}
-        />
-        <Input
-          label="Confirm Password"
-          type="password"
-          placeholder="Confirm your password"
-          {...register('confirmPassword')}
-        />
-        <Button isLoading={isLoading} className="w-full">
-          Register
-        </Button>
-        <p className="text-center">
-          Already have an account?{' '}
-          <Link className="text-primary-500" to="/login">
-            Login
-          </Link>
-        </p>
+        <Card>
+          <CardHeader>
+            <CardTitle>Create an Account</CardTitle>
+            <CardDescription>Type your email and password to register</CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-3">
+            <Input
+              label="Email"
+              type="email"
+              placeholder="Your email"
+              errorMessage={errors.email?.message}
+              {...register('email')}
+            />
+            <Input
+              label="Password"
+              type="password"
+              placeholder="Your password"
+              errorMessage={errors.password?.message}
+              description="Password must be at least 8 characters long"
+              {...register('password')}
+            />
+            <Input
+              label="Confirm Password"
+              type="password"
+              placeholder="Confirm your password"
+              errorMessage={errors.confirmPassword?.message}
+              {...register('confirmPassword')}
+            />
+          </CardContent>
+
+          <CardFooter className="flex items-center justify-between">
+            <ButtonLink intent="secondary" to="/login">
+              Login
+            </ButtonLink>
+            <Button isLoading={isLoading}>Register</Button>
+          </CardFooter>
+        </Card>
       </form>
     </main>
   );

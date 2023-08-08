@@ -5,6 +5,7 @@ import { AxiosError } from 'axios';
 
 import { sendConfirmationEmail } from '@/api/auth';
 import Button from '@/components/utils/Button';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/utils/card';
 import { useAuthStore } from '@/store/auth';
 
 export default function PendingConfirmationPage() {
@@ -23,23 +24,26 @@ export default function PendingConfirmationPage() {
   });
 
   return (
-    <main className="grid h-full p-4 place-items-center">
-      <div className="space-y-4 text-center">
-        <h1 className="text-lg font-medium text-gray-900 dark:text-white">
-          Please confirm your account{' '}
-        </h1>
-        <p>
-          The instructions have been sent to the email <span>{user?.email}</span>.
-        </p>
-        <Button
-          onClick={() => mutate()}
-          isLoading={isLoading}
-          intent="secondary"
-          className="mx-auto"
-        >
-          Send the email again
-        </Button>
-      </div>
+    <main className="grid h-full p-4 px-6 place-items-center">
+      <Card className="max-w-[380px] w-full">
+        <CardHeader>
+          <CardTitle>Confirm your account</CardTitle>
+          <CardDescription>
+            The instructions have been sent to the email <span>{user?.email}</span>
+          </CardDescription>
+        </CardHeader>
+
+        <CardFooter>
+          <Button
+            onClick={() => mutate()}
+            isLoading={isLoading}
+            intent="secondary"
+            className="w-full"
+          >
+            Send the email again
+          </Button>
+        </CardFooter>
+      </Card>
     </main>
   );
 }

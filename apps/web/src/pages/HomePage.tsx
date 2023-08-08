@@ -6,6 +6,7 @@ import { AxiosError } from 'axios';
 
 import { logout } from '@/api/auth';
 import { getRandomMessage } from '@/api/test';
+import Badge from '@/components/utils/Badge';
 import Button from '@/components/utils/Button';
 import { useAuthStore } from '@/store/auth';
 
@@ -45,23 +46,23 @@ export default function HomePage() {
           NestJS + ReactJS starter
         </h1>
         {data && (
-          <p className="px-2 py-1 mx-auto text-sm font-medium text-gray-600 bg-gray-100 border border-gray-200 rounded-md w-fit dark:text-gray-400 dark:bg-gray-900 dark:border-gray-800">
+          <Badge intent="primary" className="mt-1">
             {data}
-          </p>
+          </Badge>
         )}
         <Button
           isLoading={isLoading || isFetching}
           onClick={() => refetch()}
           intent="secondary"
           size="sm"
-          className="mx-auto mt-4"
+          className="block mx-auto mt-4"
         >
           Randomize Text
         </Button>
 
         {user && (
           <p className="mt-16 text-gray-600 dark:text-gray-400">
-            Hello {user.email}{' '}
+            Hello <Badge>{user.email}</Badge>{' '}
             <Button intent="secondary" size="sm" onClick={() => mutate()}>
               Logout
             </Button>

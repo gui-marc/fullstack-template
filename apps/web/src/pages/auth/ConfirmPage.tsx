@@ -1,15 +1,18 @@
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useMutation } from 'react-query';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { AxiosError } from 'axios';
 
 import { confirm } from '@/api/auth';
-import Spinner from '@/components/utils/Spinner';
+import ButtonLink from '@/components/utils/ButtonLink';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/utils/card';
 
 export default function ConfirmPage() {
-  const { mutate, isLoading } = useMutation('confirm', confirm, {
+  // const navigate = useNavigate();
+
+  const { mutate } = useMutation('confirm', confirm, {
     onError(error) {
       if (error instanceof AxiosError) {
         toast.error(error.message);
@@ -28,17 +31,17 @@ export default function ConfirmPage() {
   }, []);
 
   return (
-    <main className="grid h-full place-items-center">
-      <div className="space-y-4 text-center">
-        {isLoading && <Spinner />}
-        <h1 className="text-lg font-medium text-white">
-          {isLoading ? 'Confirming your account...' : 'Account Confirmed'}
-        </h1>
-        <p>Thanks for joining us</p>
-        <Link className="text-primary-500" to={'/app'}>
-          Go to App
-        </Link>
-      </div>
+    <main className="grid h-full px-6 place-items-center">
+      <Card className="max-w-[380px] w-full">
+        <CardHeader>
+          <CardTitle>Account activated</CardTitle>
+          <CardDescription>Thanks for joining us</CardDescription>
+        </CardHeader>
+
+        <CardFooter>
+          <ButtonLink to={'/app'}>Go to App</ButtonLink>
+        </CardFooter>
+      </Card>
     </main>
   );
 }
