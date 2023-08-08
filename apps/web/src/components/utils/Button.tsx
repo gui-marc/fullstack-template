@@ -7,7 +7,7 @@ import { tv, VariantProps } from 'tailwind-variants';
 import Spinner from './Spinner';
 
 export const button = tv({
-  base: 'relative text-sm active:scale-[99%] font-medium rounded-lg inline-flex justify-center items-center leading-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition ease-in-out duration-150 disabled:pointer-events-none',
+  base: 'relative outline-none text-sm active:scale-[99%] font-medium rounded-lg inline-flex justify-center items-center leading-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition ease-in-out duration-150 disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-primary-300 dark:focus-visible:ring-primary-800',
   variants: {
     intent: {
       primary:

@@ -1,8 +1,9 @@
 import { forwardRef, useState } from 'react';
 
 import { motion } from 'framer-motion';
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { tv, VariantProps } from 'tailwind-variants';
+
+import Icon from './Icon';
 
 const input = tv({
   base: 'text-sm px-3 h-10 rounded-lg text-gray-800 dark:text-gray-200 w-full flex bg-transparent border placeholder:text-gray-500 font-sans focus-visible:ring-2 focus-visible:ring-primary-300 dark:focus-visible:ring-primary-800 disabled:pointer-events-none disabled:bg-gray-100 dark:disabled:bg-gray-800',
@@ -56,10 +57,12 @@ const Input = forwardRef<React.ElementRef<typeof motion.input>, InputProps>(func
           <button
             type="button"
             onClick={toggleShowPassword}
+            aria-hidden="true"
+            tabIndex={-1}
             className="absolute grid p-2 rounded-md place-items-center right-1 bottom-0.5"
           >
             <span className="w-5 h-5 text-gray-500">
-              {showPassword ? <EyeIcon size={20} /> : <EyeOffIcon size={20} />}
+              {showPassword ? <Icon name="eye" /> : <Icon name="eye-off" />}
             </span>
           </button>
         )}
