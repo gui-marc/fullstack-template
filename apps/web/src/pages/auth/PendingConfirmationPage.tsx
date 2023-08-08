@@ -5,6 +5,7 @@ import { AxiosError } from 'axios';
 
 import { sendConfirmationEmail } from '@/api/auth';
 import Button from '@/components/utils/Button';
+import ButtonLink from '@/components/utils/ButtonLink';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/utils/card';
 import { useAuthStore } from '@/store/auth';
 
@@ -33,7 +34,10 @@ export default function PendingConfirmationPage() {
           </CardDescription>
         </CardHeader>
 
-        <CardFooter>
+        <CardFooter className="space-y-4">
+          <ButtonLink className="w-full" to="/app">
+            Already confirmed. Go to the app
+          </ButtonLink>
           <Button
             onClick={() => mutate()}
             isLoading={isLoading}
