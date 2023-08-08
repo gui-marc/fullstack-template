@@ -1,6 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 
 import { motion } from 'framer-motion';
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { tv, VariantProps } from 'tailwind-variants';
 
 const input = tv({
@@ -22,9 +23,15 @@ export interface InputProps
 }
 
 const Input = forwardRef<React.ElementRef<typeof motion.input>, InputProps>(function _Input(
-  { className, label, errorMessage, description, ...props },
+  { className, label, errorMessage, description, type, ...props },
   ref,
 ) {
+  const isPassword = type === 'password';
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => setShowPassword((prev) => !prev);
+
   return (
     <label
       data-disabled={props.disabled}
@@ -38,7 +45,25 @@ const Input = forwardRef<React.ElementRef<typeof motion.input>, InputProps>(func
           {label}
         </span>
       )}
-      <motion.input className={input({ className, valid: !errorMessage })} {...props} ref={ref} />
+      <div className="relative w-full">
+        <motion.input
+          className={input({ className, valid: !errorMessage })}
+          {...props}
+          type={isPassword ? (showPassword ? 'text' : 'password') : type}
+          ref={ref}
+        />
+        {isPassword && (
+          <button
+            type="button"
+            onClick={toggleShowPassword}
+            className="absolute grid p-2 rounded-md place-items-center right-1 bottom-0.5"
+          >
+            <span className="w-5 h-5 text-gray-500">
+              {showPassword ? <EyeIcon size={20} /> : <EyeOffIcon size={20} />}
+            </span>
+          </button>
+        )}
+      </div>
       {description && !errorMessage && <p className="text-xs text-gray-500">{description}</p>}
       {errorMessage && <p className="text-xs text-danger-500">{errorMessage}</p>}
     </label>
