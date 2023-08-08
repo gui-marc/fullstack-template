@@ -39,7 +39,9 @@ export default function ConfirmPage() {
         </CardHeader>
 
         <CardFooter>
-          <ButtonLink to={'/app'}>Go to App</ButtonLink>
+          <ButtonLink className="w-full" to={'/app'}>
+            Go to App
+          </ButtonLink>
         </CardFooter>
       </Card>
     </main>
