@@ -27,28 +27,28 @@ model User {
 
 model Password {
   userId Int  @id
-  User   User @relation(fields: [userId], references: [id])
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   hash String
 }
 
 model RefreshToken {
   userId Int  @id
-  User   User @relation(fields: [userId], references: [id])
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   token String @unique
 }
 
 model AccountConfirmationToken {
   userId Int  @id
-  User   User @relation(fields: [userId], references: [id])
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   hashedToken String @unique
 }
 
 model PasswordRecoveryToken {
   userId Int  @id
-  User   User @relation(fields: [userId], references: [id])
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   hashedToken String @unique
 }
