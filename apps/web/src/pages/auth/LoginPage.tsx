@@ -82,7 +82,7 @@ export default function LoginPage() {
               {...register('password')}
             />
             <div className="flex items-center">
-              <Link className="text-sm" to="/password-recover">
+              <Link className="text-sm" to="/send-password-recover">
                 Forgot my password
               </Link>
             </div>

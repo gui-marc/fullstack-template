@@ -9,6 +9,7 @@ import * as argon2 from 'argon2';
 import { LoginDto } from './dto/login.dto';
 import InvalidCredentialsException from './exceptions/invalid-credentials.exception';
 import { MailerService } from '@nestjs-modules/mailer';
+import { RecoverPasswordDto } from './dto/recover-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -45,6 +46,10 @@ export class AuthService {
   async sendConfirmationEmail(email: string) {
     const user = await this.usersService.findByEmail(email);
 
+    if (!user) {
+      throw new InvalidCredentialsException();
+    }
+
     const accountConfirmationToken =
       await this.generateAccountConfirmationToken(user.id, user.email);
     await this.updateAccountConfirmationToken(
@@ -63,6 +68,72 @@ export class AuthService {
       context: {
         confirmUrl,
       },
+    });
+  }
+
+  async sendPasswordRecoverEmail(email: string) {
+    const user = await this.usersService.findByEmail(email);
+
+    if (!user) {
+      throw new InvalidCredentialsException();
+    }
+
+    const passwordRecoveryToken = await this.generatePasswordRecoveryToken(
+      user.id,
+      user.email,
+    );
+    await this.updatePasswordRecoveryToken(user.id, passwordRecoveryToken);
+
+    const recoverUrl = `${this.config.get(
+      'APP_URL',
+    )}/password-recover?token=${passwordRecoveryToken}`;
+
+    await this.mailService.sendMail({
+      to: user.email,
+      subject: 'Recover your password',
+      template: './password-recover',
+      context: {
+        recoverUrl,
+        email,
+      },
+    });
+  }
+
+  async recoverPassword({ password }: RecoverPasswordDto, token: string) {
+    if (!token) {
+      throw new InvalidCredentialsException();
+    }
+
+    const payload = await this.jwtService.verifyAsync(token, {
+      secret: this.config.get('JWT_PASSWORD_RECOVERY_TOKEN_SECRET'),
+    });
+
+    if (!payload) {
+      throw new InvalidCredentialsException();
+    }
+
+    const user = await this.usersService.findByEmail(payload.email);
+
+    if (!user) {
+      throw new InvalidCredentialsException();
+    }
+
+    const hashedToken = await this.prisma.passwordRecoveryToken.findUnique({
+      where: { userId: user.id },
+    });
+
+    const tokensMatch = await argon2.verify(hashedToken.hashedToken, token);
+
+    if (!tokensMatch) {
+      throw new InvalidCredentialsException();
+    }
+
+    const hashedPassword = await this.hash(password);
+
+    await this.usersService.changePassword(user.id, hashedPassword);
+
+    await this.prisma.passwordRecoveryToken.delete({
+      where: { userId: user.id },
     });
   }
 
@@ -179,6 +250,18 @@ export class AuthService {
     );
 
     return token;
+  }
+
+  private async updatePasswordRecoveryToken(
+    userId: number,
+    passwordRecoveryToken: string,
+  ) {
+    const hashed = await this.hash(passwordRecoveryToken);
+    await this.prisma.passwordRecoveryToken.upsert({
+      where: { userId },
+      update: { hashedToken: hashed },
+      create: { hashedToken: hashed, userId },
+    });
   }
 
   private async generateAccountConfirmationToken(

@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto, loginDtoSchema } from './dto/login.dto';
 import { ValidationPipe } from '@/commom/validation/validation.pipe';
@@ -10,6 +19,12 @@ import { Request } from 'express';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
 import { Public } from '@/commom/decorators/public.decorator';
 import { NoConfirmation } from './guards/account-confirmation.guard';
+import {
+  RecoverPasswordDto,
+  SendPasswordRecoverDto,
+  recoverPasswordSchema,
+  sendPaswordRecoverSchema,
+} from './dto/recover-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -40,6 +55,24 @@ export class AuthController {
   @NoConfirmation()
   async sendConfirmEmail(@Req() req: Request) {
     await this.authService.sendConfirmationEmail(req.user['email']);
+  }
+
+  @Post('send-password-recover-email')
+  @Public()
+  async sendPasswordRecoverEmail(
+    @Body(new ValidationPipe(sendPaswordRecoverSchema))
+    body: SendPasswordRecoverDto,
+  ) {
+    await this.authService.sendPasswordRecoverEmail(body.email);
+  }
+
+  @Post('recover-password')
+  @Public()
+  async recoverPassword(
+    @Body(new ValidationPipe(recoverPasswordSchema)) body: RecoverPasswordDto,
+    @Query('token') token: string,
+  ) {
+    return this.authService.recoverPassword(body, token);
   }
 
   @Get('logout')

@@ -12,7 +12,8 @@ const LoginPage = lazyRoute('/src/pages/auth/LoginPage');
 const RegisterPage = lazyRoute('/src/pages/auth/RegisterPage');
 const ConfirmPage = lazyRoute('/src/pages/auth/ConfirmPage');
 const PendingConfirmationPage = lazyRoute('/src/pages/auth/PendingConfirmationPage');
-const PasswordRecoverPage = lazyRoute('/src/pages/auth/PasswordRecoverPage');
+const SendPasswordRecoverPage = lazyRoute('/src/pages/auth/SendPasswordRecoverPage');
+const RecoverPasswordPage = lazyRoute('/src/pages/auth/PasswordRecoverPage');
 
 function Loader() {
   return (
@@ -27,15 +28,28 @@ export default function Router() {
     <SuspenseRouter window={window}>
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={<Navigate to="/app" replace={true} />} />
-          <Route path="/app" Component={AuthWrapper}>
+          <Route id="RootPage" path="/" element={<Navigate to="/app" replace={true} />} />
+          <Route id="AppPage" path="/app" Component={AuthWrapper}>
             <Route index Component={HomePage} />
           </Route>
-          <Route path="/login" Component={LoginPage} />
-          <Route path="/register" Component={RegisterPage} />
-          <Route path="/confirm" Component={ConfirmPage} />
-          <Route path="/pending-confirmation" Component={PendingConfirmationPage} />
-          <Route path="/password-recover" Component={PasswordRecoverPage} />
+          <Route id="LoginPage" path="/login" Component={LoginPage} />
+          <Route id="RegisterPage" path="/register" Component={RegisterPage} />
+          <Route id="ConfirmPage" path="/confirm" Component={ConfirmPage} />
+          <Route
+            id="PendingConfirmationPage"
+            path="/pending-confirmation"
+            Component={PendingConfirmationPage}
+          />
+          <Route
+            id="SendPasswordRecoverPage"
+            path="/send-password-recover"
+            Component={SendPasswordRecoverPage}
+          />
+          <Route
+            id="RecoverPasswordPage"
+            path="/password-recover"
+            Component={RecoverPasswordPage}
+          />
         </Routes>
       </Suspense>
     </SuspenseRouter>

@@ -8,9 +8,7 @@ import { button } from './Button';
 export interface ButtonLinkProps
   extends VariantProps<typeof button>,
     LinkProps,
-    ComponentProps<typeof Link> {
-  to: string;
-}
+    ComponentProps<typeof Link> {}
 
 export default function ButtonLink({ className, intent, size, ...props }: ButtonLinkProps) {
   return <Link className={button({ className, intent, size })} {...props} />;

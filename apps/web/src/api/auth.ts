@@ -1,4 +1,4 @@
-import { LoginDto, RegisterDto } from '@/schemas/auth';
+import { ChangePasswordSchema, LoginDto, RegisterDto } from '@/schemas/auth';
 
 import client from './client';
 
@@ -43,4 +43,23 @@ export async function confirm(confirmToken: string) {
 
 export async function sendConfirmationEmail() {
   await client.get(`${BASE_URL}/send-confirm-email`);
+}
+
+export async function sendPasswordRecoverEmail({ email }: { email: string }) {
+  await client.post(`${BASE_URL}/send-password-recover-email`, { email });
+}
+
+export async function recoverPassword({
+  confirmPassword,
+  password,
+  token,
+}: ChangePasswordSchema & { token: string }) {
+  const response = await client.post(
+    `${BASE_URL}/recover-password`,
+    { confirmPassword, password },
+    {
+      params: { token },
+    },
+  );
+  return response.data;
 }
