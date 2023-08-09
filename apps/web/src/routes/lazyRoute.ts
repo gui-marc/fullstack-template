@@ -1,5 +1,3 @@
-/* @vite-ignore */
-
 import { lazy } from 'react';
 
 import { progressStore } from '@/store/progressStore';
@@ -14,7 +12,7 @@ const lazyRoute = (path: string) =>
 
         start();
 
-        import(path)
+        import(/* @vite-ignore */ path)
           .then((module) => {
             setTimeout(() => {
               resolve(module);
