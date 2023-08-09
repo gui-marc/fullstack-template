@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useMutation } from 'react-query';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 
 import { AxiosError } from 'axios';
 
@@ -10,12 +10,12 @@ import ButtonLink from '@/components/utils/ButtonLink';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/utils/card';
 
 export default function ConfirmPage() {
-  // const navigate = useNavigate();
-
   const { mutate } = useMutation('confirm', confirm, {
     onError(error) {
       if (error instanceof AxiosError) {
-        toast.error(error.message);
+        toast.error(error.response?.data?.message || error.message);
+      } else {
+        toast.error('Something went wrong');
       }
     },
     onSuccess() {
@@ -25,9 +25,15 @@ export default function ConfirmPage() {
 
   const [query] = useSearchParams();
 
+  const token = query.get('token');
+
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
   useEffect(() => {
-    console.log({ token: query.get('token') });
-    mutate(query.get('token') ?? '');
+    console.log({ token: token! });
+    mutate(token! ?? '');
   }, []);
 
   return (
