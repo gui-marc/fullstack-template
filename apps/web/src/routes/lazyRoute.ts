@@ -1,3 +1,5 @@
+/* @vite-ignore */
+
 import { lazy } from 'react';
 
 import { progressStore } from '@/store/progressStore';
@@ -14,9 +16,10 @@ const lazyRoute = (path: string) =>
 
         import(path)
           .then((module) => {
-            console.log('finished loading route ', path);
-            complete();
-            resolve(module);
+            setTimeout(() => {
+              resolve(module);
+              complete();
+            }, 150);
           })
           .catch((err) => {
             complete();

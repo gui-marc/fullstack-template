@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import TailwindToaster from '../misc/TailwindToaster';
 import ProgressBar from '../utils/ProgressBar';
 
@@ -9,7 +7,7 @@ export default function RootLayout({ children, ...props }: RootLayoutProps) {
   return (
     <div className="h-full" {...props}>
       <ProgressBar />
-      <Suspense>{children}</Suspense>
+      {children}
       <TailwindToaster />
     </div>
   );
