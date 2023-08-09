@@ -19,7 +19,7 @@ const BackButton = forwardRef<React.ElementRef<typeof Link>, BackButtonProps>(fu
 ) {
   return (
     <Link className={backButton({ className })} {...props} ref={ref}>
-      <Icon className="mr-1.5" name="arrow-left-circle" /> {children}
+      <Icon className="mr-1.5" name="arrow-left" /> {children}
     </Link>
   );
 });

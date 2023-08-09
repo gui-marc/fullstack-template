@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { tv, VariantProps } from 'tailwind-variants';
 
 const link = tv({
-  base: 'text-primary-500 font-medium hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 underline',
+  base: 'text-primary-500 font-medium hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 hover:underline transition duration-150 ease-in-out',
 });
 
 export interface LinkProps

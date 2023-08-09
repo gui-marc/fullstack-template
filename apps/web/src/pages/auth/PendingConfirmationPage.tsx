@@ -4,9 +4,17 @@ import { useMutation } from 'react-query';
 import { AxiosError } from 'axios';
 
 import { sendConfirmationEmail } from '@/api/auth';
+import BackButton from '@/components/utils/BackButton';
 import Button from '@/components/utils/Button';
 import ButtonLink from '@/components/utils/ButtonLink';
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/utils/card';
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardPreHeader,
+  CardTitle,
+} from '@/components/utils/card';
 import { useAuthStore } from '@/store/auth';
 
 export default function PendingConfirmationPage() {
@@ -27,6 +35,10 @@ export default function PendingConfirmationPage() {
   return (
     <main className="grid h-full p-4 px-6 place-items-center">
       <Card className="max-w-[380px] w-full">
+        <CardPreHeader>
+          <BackButton to="/login">Back to Login</BackButton>
+        </CardPreHeader>
+
         <CardHeader>
           <CardTitle>Confirm your account</CardTitle>
           <CardDescription>
