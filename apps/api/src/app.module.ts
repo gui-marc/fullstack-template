@@ -8,6 +8,10 @@ import { ConfigModule } from './commom/config/config.module';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-store';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { ReactAdapter } from '@webtre/nestjs-mailer-react-adapter';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,19 +21,36 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       rootPath: join(__dirname, '../..', 'web', 'dist'),
     }),
     CacheModule.register<any>({
-      isGlobal: true,
+      ttl: 60 * 30, // 30 minutes
+      max: 100,
       store: redisStore,
       host: process.env.REDIS_HOST,
       port: parseInt(process.env.REDIS_PORT),
     }),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT),
+        secure: process.env.SMTP_SECURE === 'true',
+        ...(process.env.SMTP_SECURE === 'true' && {
+          auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS,
+          },
+        }),
+      },
+      defaults: {
+        from: process.env.SMTP_FROM,
+      },
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new ReactAdapter(),
+      },
+    }),
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}
