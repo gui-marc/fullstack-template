@@ -20,7 +20,7 @@ import {
 import Input from '@/components/utils/Input';
 import Link from '@/components/utils/Link';
 import { LoginDto, loginSchema } from '@/schemas/auth';
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '@/store/authStore';
 
 export default function LoginPage() {
   const { isLoading, mutate } = useMutation('login', AuthApi.login, {

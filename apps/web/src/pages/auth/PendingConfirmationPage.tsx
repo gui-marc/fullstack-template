@@ -15,7 +15,7 @@ import {
   CardPreHeader,
   CardTitle,
 } from '@/components/utils/card';
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '@/store/authStore';
 
 export default function PendingConfirmationPage() {
   const { user } = useAuthStore();

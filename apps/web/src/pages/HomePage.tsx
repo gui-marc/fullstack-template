@@ -8,7 +8,7 @@ import { logout } from '@/api/auth';
 import { getRandomMessage } from '@/api/test';
 import Badge from '@/components/utils/Badge';
 import Button from '@/components/utils/Button';
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '@/store/authStore';
 
 export default function HomePage() {
   const {

@@ -4,7 +4,7 @@ import { Location, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import * as AuthApi from '@/api/auth';
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '@/store/authStore';
 
 export default function AuthWrapper() {
   const {

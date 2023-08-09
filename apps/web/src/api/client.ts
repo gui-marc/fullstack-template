@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { authStore, getAuthLocalState } from '@/store/auth';
+import { authStore, getAuthLocalState } from '@/store/authStore';
 
 import { refresh } from './auth';
 

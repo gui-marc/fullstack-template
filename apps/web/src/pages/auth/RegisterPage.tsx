@@ -21,7 +21,7 @@ import {
 } from '@/components/utils/card';
 import Input from '@/components/utils/Input';
 import { RegisterDto, registerSchema } from '@/schemas/auth';
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '@/store/authStore';
 
 export default function RegisterPage() {
   const { isLoading, mutate } = useMutation('register', AuthApi.register, {
