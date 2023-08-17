@@ -50,3 +50,25 @@ List of packages:
   "description": "Creates a Motion Ref Tailwind Component"
 }
 ```
+
+## Configuring Environment Variables
+
+```env
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
+
+# Redis
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
+# Smtp
+SMTP_HOST=localhost
+SMTP_PORT=1025
+SMTP_FROM=<Fullstack Template>
+SMTP_SECURE=false # or true if you are using ssl, than you need to set SMTP_USER and SMTP_PASSWORD
+
+# JWT (you can generate it with 'node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"')
+JWT_ACCESS_TOKEN_SECRET=
+JWT_REFRESH_TOKEN_SECRET=
+JWT_PASSWORD_RECOVERY_TOKEN_SECRET=
+JWT_ACCOUNT_CONFIRMATION_TOKEN_SECRET=
+```
