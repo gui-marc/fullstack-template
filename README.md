@@ -54,6 +54,10 @@ List of packages:
 ## Configuring Environment Variables
 
 ```env
+# App
+APP_URL=http://localhost:5173 # or your domain (used for emails)
+
+# Database
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 
 # Redis
